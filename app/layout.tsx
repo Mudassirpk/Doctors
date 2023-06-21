@@ -1,6 +1,8 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
-
+import ReactQueryWrapper from "@/lib/ReactQueryWrapper";
+import ContextProvider from "@/Context/Context";
+import SessionProviderWrapper from "@/lib/SessionProvider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -11,7 +13,6 @@ export const metadata = {
 // components
 import Header from "@/components/global/Header";
 import Footer from "@/components/global/Footer";
-
 export default function RootLayout({
   children,
 }: {
@@ -20,9 +21,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Header />
-        {children}
-        <Footer />
+        <ContextProvider>
+          <SessionProviderWrapper>
+            <Header />
+            <ReactQueryWrapper>{children}</ReactQueryWrapper>
+            <Footer />
+          </SessionProviderWrapper>
+        </ContextProvider>
       </body>
     </html>
   );
