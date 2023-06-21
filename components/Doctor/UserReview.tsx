@@ -23,7 +23,7 @@ const reviewInputSchema: ZodType<{ message: string }> = z.object({
 });
 
 function UserReview({ doctorId, reviews, setReviews }: Props) {
-  const { data, status } = useSession();
+  const { data } = useSession();
   const user: iPatient = data?.user;
 
   const {
